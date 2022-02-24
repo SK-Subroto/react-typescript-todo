@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
 import './App.css';
-import Todo from './components/Todo/Todo';
+import AddTodo from './components/AddTodo/AddTodo';
 import Todos from './components/Todos/Todos';
 import { ITodos } from './components/Types/Types'
+import Box from '@material-ui/core/Box';
+import Paper from '@material-ui/core/Paper';
 
 
 function App() {
@@ -33,13 +35,19 @@ function App() {
 
   return (
     <div className="App">
-      <Todo addTodos={addTodos} />
-      <hr />
-      <Todos
-        todos={todos}
-        toggleTodos={toggleTodos}
-        deleteTodos={deleteTodos} />
-    </div>
+      <Box bgcolor="info.main" sx={{ height: '100vh' }}>
+        <Box width="50%" sx={{ pt: 10, mx: 'auto' }}>
+          <Paper elevation={3}>
+            <AddTodo addTodos={addTodos} />
+
+            <Todos
+              todos={todos}
+              toggleTodos={toggleTodos}
+              deleteTodos={deleteTodos} />
+          </Paper>
+        </Box>
+      </Box>
+    </div >
   );
 }
 
