@@ -36,7 +36,7 @@ const Todos: React.FC<{
 
     const classes = useStyles();
     return (
-        <Box sx={{ px: 15 }}>
+        <Box sx={{ px: { xs: 5, md: 15 } }}>
             {todos.todos.length ? <Box sx={{ mx: 'auto' }}>
                 {
                     <List className={classes.root}>

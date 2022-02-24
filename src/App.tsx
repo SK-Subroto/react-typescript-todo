@@ -36,7 +36,7 @@ function App() {
   return (
     <div className="App">
       <Box bgcolor="info.main" sx={{ height: '100vh' }}>
-        <Box width="50%" sx={{ pt: 10, mx: 'auto' }}>
+        <Box sx={{ pt: 10, mx: 'auto', width: { xs: '100%', md: '50%' } }}>
           <Paper elevation={3}>
             <AddTodo addTodos={addTodos} />
 
