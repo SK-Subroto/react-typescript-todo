@@ -1,26 +1,50 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect } from 'react';
 import './App.css';
+import Todo from './components/Todo/Todo';
+import Todos from './components/Todos/Todos';
+import { ITodos } from './components/Types/Types'
+
 
 function App() {
+  const [todos, setTodos] = React.useState<ITodos>(JSON.parse(`${localStorage.getItem('todos')}`) || { todos: [] });
+  useEffect(() => {
+    // setTodos(JSON.parse(`${localStorage.getItem('todos')}`))
+
+    localStorage.setItem("todos", JSON.stringify(todos))
+  }, [todos])
+  const addTodos = (title: string) => {
+    setTodos({
+      todos: [
+        { title, completed: false, id: todos.todos.length + 1 },
+        ...todos.todos
+      ]
+    });
+  };
+  const deleteTodos = (id: number) => {
+    setTodos({
+      todos: todos.todos.filter(t => t.id !== id)
+    });
+  };
+  const toggleTodos = (id: number) => {
+    setTodos({
+      todos: todos.todos.map(todo => todo.id === id ? { ...todo, completed: !todo.completed } : todo)
+    });
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Todo addTodos={addTodos} />
+      <hr />
+      <Todos
+        todos={todos}
+        toggleTodos={toggleTodos}
+        deleteTodos={deleteTodos} />
     </div>
   );
 }
+
+
+
+
 
 export default App;
